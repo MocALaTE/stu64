@@ -255,8 +255,10 @@ while(1):
                         user_data_file.close()
                     capper = False
                     page = "profile"
-
+                    output = gTTS(text="สวัสดีน้อง"+memprofile[3],lang="th",slow=False)
+                    output.save("s/login_name"+memprofile[0]+".mp3")
                     print("findddddd")
+                    print("1")
             if k >= 5:
                 page = "login"
                 capper = False
