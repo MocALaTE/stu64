@@ -174,6 +174,8 @@ while(1):
         screen.blit(ulp.first_page,(0,0))
         pg.display.update()
         pg.time.delay(2000)
+        csv_list  =[]
+        txt_member_list = []
         filenames = os.listdir(user_data_path)
         for filename in filenames:
             if '.csv' in filename:
@@ -188,6 +190,7 @@ while(1):
                         txt_member_list.append(filename)
                 user_data_file.close()
         # print(len(txt_member_list))
+        print(csv_list)
         if len(txt_member_list) == 0:
             page = "login"
         else:
@@ -312,7 +315,6 @@ while(1):
         if click == 2 :
             output = gTTS(text="สวัสดีน้อง"+memprofile[3],lang="th",slow=False)
             output.save("s/login_name"+memprofile[0]+".mp3")
-            
             click = 0
             distance_box.text = "  "
             distance_box.txt_surface = distance_box.font.render(distance_box.text, True, pg.Color("black"))
@@ -1146,9 +1148,9 @@ while(1):
                 pro_correct = 0
                 type_test_inputbox.text = "  "
                 type_test_inputbox.txt_surface = type_test_inputbox.font.render(type_test_inputbox.text, True, pg.Color("black"))
-        if EXAMNO[0] == 0:
-            t2 = Text(90,250, 80, "browallianewbold", green, 1, "sri tao i sas na ja") 
-            t2.draw(screen)
+        # if EXAMNO[0] == 0:
+        #     t2 = Text(90,250, 80, "browallianewbold", green, 1, "sri tao i sas na ja") 
+        #     t2.draw(screen)
         if EXAMNO[0] > 0:
             if back_test_btn.mouse_on():
                 screen.blit(ulp.back_test_pic,(1127,98))
