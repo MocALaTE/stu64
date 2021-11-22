@@ -507,6 +507,7 @@ while(1):
         pg.display.update()
         if call_name == 1:
             playsound(project_path+"/s/login_name"+memprofile[0]+".mp3")
+            os.remove(project_path+"/s/login_name"+memprofile[0]+".mp3")
             call_name = 0
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -623,10 +624,8 @@ while(1):
             if pg.mouse.get_pressed()[0] == 1:  # button get click
                 if r_btn_status == True :
                     click =1
-                    row = [memprofile[0], firstname_register1.text, surname_register1.text, nickname_register1.text,memprofile[4],memprofile[5],
-                            hold_p[0],hold_p[1],hold_p[2],
-                            test_pass[0],test_pass[1],test_pass[2]]
-                    u1.WriteData(row[0:6],row[6:9],row[9:12])
+                    memprofile = [memprofile[0], firstname_register1.text, surname_register1.text, nickname_register1.text,memprofile[4],memprofile[5]]
+                    u1.WriteData(memprofile,hold_p,test_pass,point_pass)
                     memprofile,hold_p,test_pass = u1.ReadData(memprofile[0]) 
             if pg.mouse.get_pressed()[0] == 0 and click ==1:
                 page = "profile"
