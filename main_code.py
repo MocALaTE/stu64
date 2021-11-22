@@ -194,7 +194,7 @@ while(1):
         if len(txt_member_list) == 0:
             page = "login"
         else:
-            page = 'login'
+            page = 'scan'
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
@@ -443,7 +443,7 @@ while(1):
                 if r_btn_status == False:
                     wrong[1] = 1
             if pg.mouse.get_pressed()[0] == 0 and click ==1:
-                page = "login"
+                page = "start"
                 click =0
                 for n in range (len(input_registor)):
                     input_registor[n].text = "  "
@@ -1103,6 +1103,9 @@ while(1):
         t5.draw(screen)
         t6 = Text(40,110 , 80, "browallianewbold", (0,0,0), 1, str(EXAMNO[0]+1) +" / 5")
         t6.draw(screen)
+        if type_test_inputbox.text == "  ":
+            t7 = Text(410,548, 40, "browallianewbold", (150,150,150), 1, "typing word with keyboard")
+            t7.draw(screen)
         if back_page_btn.mouse_on():
             screen.blit(ulp.back_page_green_btn,(15,12))
             if pg.mouse.get_pressed()[0] == 1:
@@ -1217,8 +1220,8 @@ while(1):
         if enter_press == 1:
             if type_test_inputbox.text.lower() == ("  "+word_test[1][EXAMNO[0]].lower()) :
                 # print("true answer")
-                # practice_pass = 1
-                pass_test_flag = 1 
+                practice_pass = 1
+                # pass_test_flag = 1 
                 screen.blit(ulp.record_pic,(0,0))
             enter_press = 0
         for box in animal_boxes:
