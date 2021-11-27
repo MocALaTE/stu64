@@ -36,13 +36,12 @@ lesson_green_btn = pg.image.load(ui_pic_path+'/lesson_button.png')
 practice_green_btn = pg.image.load(ui_pic_path+'/lesson_button.png')
 p_g_b = pg.image.load(ui_pic_path+'/practice_button.png')
 practice_green_btn = pg.image.load(ui_pic_path+'/practice_button.png')
-
-all_setting_btn = pg.image.load(ui_pic_path+'/all.png')
-
+all_setting_btn = pg.image.load(ui_pic_path+'/mix_popup.png')
+all_setting_btn2 = pg.image.load(ui_pic_path+'/mix_popup_2.png')
 
 #setting
-edit_profile_secl_btn = pg.image.load(ui_pic_path+'/edit_profile_button.png')
-logout_profile_secl_btn = pg.image.load(ui_pic_path+'/log_out_button.png')
+edit_profile_secl_btn = pg.image.load(ui_pic_path+'/mouseon_edit.png')
+logout_profile_secl_btn = pg.image.load(ui_pic_path+'/mouseon_logout.png')
 
 #edit_profile_page
 edit_profile_page = pg.image.load(ui_pic_path+'/edit_profile_page.jpg')
@@ -84,7 +83,9 @@ n5_mouseon = pg.image.load(ui_pic_path+'/mouse_on_lemon.png')
 #practice_page
 back_to_lesson_pic =  pg.image.load(ui_pic_path+'/choose_button.png')
 back_test_pic = pg.image.load(ui_pic_path+'/backword_green.png')
+back_test_pic2 = pg.image.load(ui_pic_path+'/previous_gray.png')
 next_test_pic = pg.image.load(ui_pic_path+'/nextword_green.png')
+next_test_pic2 = pg.image.load(ui_pic_path+'/next_gray.png')
 redu_test_pic = pg.image.load(ui_pic_path+'/reword_green.png')
 practice_page =  pg.image.load(ui_pic_path+'/practice_page.jpg')
 record_pic = pg.image.load(ui_pic_path+'/recording_pic.png')
@@ -97,6 +98,7 @@ pass_chioce = pg.image.load(ui_pic_path+'/pass_pic.png')
 test_page = pg.image.load(ui_pic_path+'/final_practice_game.jpg')
 correct_icon = pg.image.load(ui_pic_path+'/correct.jpg')
 success = pg.image.load((ui_pic_path+'/section.jpg'))
+
 
 # animal_test_pic_1 = pg.image.load(ui_pic_path+'/test_pic/animal_test_1.jpg')
 # animal_test_pic_2 = pg.image.load(ui_pic_path+'/test_pic/animal_test_2.jpg')
