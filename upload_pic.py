@@ -14,8 +14,9 @@ first_page = pg.image.load(ui_pic_path+"/first_page.jpg")
 #login
 login_page = pg.image.load(ui_pic_path+'/login_page.jpg')
 login_green_btn = pg.image.load(ui_pic_path+'/new_login_button.png')
-register_green_btn = pg.image.load(ui_pic_path+'/new_regis_button.png')
-
+regis_btn_pic = pg.image.load(ui_pic_path+'/create_account_button.png')
+facelog_btn = pg.image.load(ui_pic_path+'/facelog_button.png')
+register_green_btn =pg.image.load(ui_pic_path+'/new_regis_button.png')
 
 #register
 register_page = pg.image.load(ui_pic_path+'/new_register_page.jpg')

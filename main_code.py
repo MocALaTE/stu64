@@ -41,9 +41,10 @@ orange = (242,157,0)
 u1 = user()
 micc = True
 #login_page
-register_btn = Button(729, 388 , 217, 87)
-login_btn = Button(969, 388, 217, 87)
-distance_box = InputBox(723, 273.3, 471,60,45,17,0)  # distance input box
+face_btn = Button(729, 346 , 217, 87)
+login_btn = Button(969,346 , 217, 87)
+distance_box = InputBox(722, 231, 471,60,45,17,0)  # distance input box
+regis_btn = Button(789, 475 ,337 ,57)
 #register_page
 firstname_register = InputBox(695, 170, 472,49,35,12,1)  # distance input box
 surname_register = InputBox(695, 257, 472,49,35,12,1)  # distance input box
@@ -106,6 +107,7 @@ enter_press = 0
 click = 0
 regis_click = 0
 login_click = 0
+face_click = 0
 pro_correct = 0
 progress_percent = 0.00
 progress_point = 0
@@ -113,6 +115,7 @@ csv_member_list = []
 boi_state = 0
 sound_count = 0
 pic_i_run = []
+activebox = 0
 #list
 wrong =[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 input_registor = [surname_register,firstname_register,nickname_register,username_register]
@@ -191,10 +194,11 @@ while(1):
                 user_data_file.close()
         # print(len(txt_member_list))
         print(csv_list)
+        print(txt_member_list)
         if len(txt_member_list) == 0:
             page = "login"
         else:
-            page = 'scan'
+            page = 'login'
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
@@ -228,6 +232,7 @@ while(1):
         while capper == True:
             k += 1 
             print(page,k)
+            # cv2.resize(frame, (0,0), fx=0.3,fy=0.3)
             ret, frame = video_capture.read()
             small_frame = cv2.resize(frame, (0,0), fx=0.3,fy=0.3)
             rgb_small_frame = small_frame[:,:,::-1]
@@ -258,12 +263,13 @@ while(1):
                     output = gTTS(text="สวัสดีน้อง"+memprofile[3],lang="th",slow=False)
                     output.save("s/login_name"+memprofile[0]+".mp3")
                     print("findddddd")
-                    print("1")
-            if k >= 5:
+                    print(name)
+            if k >= 3:
                 page = "login"
                 capper = False
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
+            
         video_capture.release()
         cv2.destroyAllWindows()
         for event in pg.event.get():
@@ -274,27 +280,44 @@ while(1):
 ##### CODE LOGIN PAGE ########################################################################################
     elif page == 'login':
         screen.blit(ulp.login_page, (0,0))
-        if wrong[4] == 1 and distance_box.active != True:
-            t3 = Text(730,352, 30, "browallianewbold", (255,101,101), 1, 'Incorrect username')
+        if distance_box.active == True:
+            activebox = 1
+            wrong[4] = 0 
+        if wrong[4] == 1 and activebox == 0:
+            t3 = Text(730,311, 30, "browallianewbold", (255,101,101), 1, 'Incorrect username')
             t3.draw(screen)
-        if register_btn.mouse_on():
-            screen.blit(ulp.register_green_btn, (728, 388))
+        if regis_btn.mouse_on():
+            screen.blit(ulp.regis_btn_pic, (789, 475))
             if pg.mouse.get_pressed()[0] == 1: #next state
                 regis_click = 1
+        if face_btn.mouse_on():
+            screen.blit(ulp.facelog_btn, (728, 346))
+            if pg.mouse.get_pressed()[0] == 1: #next state
+                face_click = 1
         if regis_click == 1 and pg.mouse.get_pressed()[0] == 0:
             regis_click = 0
-            page = 'register'
+            page = "register"
+            wrong =[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+            distance_box.text = "  "
+            distance_box.txt_surface = distance_box.font.render(distance_box.text, True, pg.Color("black"))
+        if face_click == 1 and pg.mouse.get_pressed()[0] == 0:
+            face_click = 0
+            if txt_member_list == []:
+                page = "login"
+            elif txt_member_list != []:
+                page = 'scan'
+            wrong =[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
             distance_box.text = "  "
             distance_box.txt_surface = distance_box.font.render(distance_box.text, True, pg.Color("black"))
         if distance_box.text == '  ': # ใส่เพราะแก้บัค
-            t3 = Text(740, 290.3, 45, "browallianewbold", (192,192,192), 1, 'Username') #text username 
+            t3 = Text(740, 248, 45, "browallianewbold", (192,192,192), 1, 'Username') #text username 
             t3.draw(screen)
         if distance_box.text == '  ' :
             login_btn_status = False
         elif distance_box.text != '  ' :
             login_btn_status = True
         if (login_btn.mouse_on() or enter_press == 1) :
-            screen.blit(ulp.login_green_btn, (969, 388))
+            screen.blit(ulp.login_green_btn, (969, 346))
             if (pg.mouse.get_pressed()[0] == 1 or enter_press == 1)and csv_list != []:  # button get click
                 enter_press = 0
                 if login_btn_status is True:  # เพิ่มกรณีที่ไม่มีไฟล์ด้วย 
@@ -303,17 +326,13 @@ while(1):
                         wrong[4] = 0 
                     else :  
                         wrong[4] = 1
+                        activebox = 0
                 if distance_box.text == '  ':
                     wrong[4] = 1 
                     please = True  # get error message
         if click == 1 and pg.mouse.get_pressed()[0] == 0:
             click = 2
             memprofile,hold_p,test_pass,point_pass = u1.ReadData(distance_box.text)
-            
-        if regis_click == 1 and pg.mouse.get_pressed()[0] == 0:
-            regis_click = 0
-            wrong =[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-            page = 'register'
         if click == 2 :
             output = gTTS(text="สวัสดีน้อง"+memprofile[3],lang="th",slow=False)
             output.save("s/login_name"+memprofile[0]+".mp3")
