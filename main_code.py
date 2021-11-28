@@ -484,6 +484,21 @@ while(1):
 
 ##### CODE PROFILE PAGE ######################################################################################
     elif page == "profile" :
+        progress_percent = 0.00
+        progress_point = 0
+        for n in range(3):
+            if point_pass[n].find("A") != -1 :
+                progress_point += 1
+            if point_pass[n].find("B") != -1 :
+                progress_point += 1
+            if point_pass[n].find("C") != -1 :
+                progress_point += 1
+            if point_pass[n].find("D") != -1 :
+                progress_point += 1
+            if point_pass[n].find("E") != -1 :
+                progress_point += 1
+        progress_percent = round(((progress_point/15)*100),2)
+
         screen.blit(ulp.profile_page,(0,0))
         userFirstName = memprofile[1]
         userSurName = memprofile[2]
@@ -534,21 +549,7 @@ while(1):
             if event.type == pg.QUIT:
                 pg.quit()
         ##### CALCULATE PERCENT PROGRESS #############################################################################
-        progress_percent = 0.00
-        progress_point = 0
-        for n in range(3):
-            if point_pass[n].find("A") != -1 :
-                progress_point += 1
-            if point_pass[n].find("B") != -1 :
-                progress_point += 1
-            if point_pass[n].find("C") != -1 :
-                progress_point += 1
-            if point_pass[n].find("D") != -1 :
-                progress_point += 1
-            if point_pass[n].find("E") != -1 :
-                progress_point += 1
-        progress_percent = round(((progress_point/15)*100),2)
-
+        
 ##### CODE SETTING PAGE ######################################################################################
     elif page =="setting" :
         (pos_x, pos_y) = pg.mouse.get_pos() # ถ้าเม้ากดยังจุดใดก็ตามที่ไม่ใช้ในกล่อง setting ให้กลับไปยัง state ก่อนหน้า like : pop-up
@@ -1123,7 +1124,7 @@ while(1):
         t6 = Text(40,110 , 80, "browallianewbold", (0,0,0), 1, str(EXAMNO[0]+1) +" / 5")
         t6.draw(screen)
         if type_test_inputbox.text == "  ":
-            t7 = Text(410,512, 40, "browallianewbold", (150,150,150), 1, "typing word with keyboard")
+            t7 = Text(410,512, 40, "browallianewbold", (150,150,150), 1, "Click & Typing with keyboard")
             t7.draw(screen)
         if back_page_btn.mouse_on():
             screen.blit(ulp.back_page_green_btn,(15,12))
@@ -1238,6 +1239,7 @@ while(1):
         if pro_correct == 1:
             screen.blit(ulp.pro_incorrect_pic,(0,0))
         if type_test_inputbox.text.lower() == ("  "+word_test[1][EXAMNO[0]].lower()) :
+            screen.blit(ulp.press_enter,(0,0))
             screen.blit(ulp.corect_Ans,(0,0))
         if type_test_inputbox.text.lower() != ("  "+word_test[1][EXAMNO[0]].lower()) and type_test_inputbox.text.lower() != ("  "):
             screen.blit(ulp.incorect_Ans,(0,0))

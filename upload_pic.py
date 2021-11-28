@@ -81,6 +81,7 @@ n4_mouseon = pg.image.load(ui_pic_path+'/mouse_on_Croissant.png')
 n5_mouseon = pg.image.load(ui_pic_path+'/mouse_on_lemon.png')
 
 #practice_page
+press_enter = pg.image.load(ui_pic_path+'/press_enter.png')
 back_to_lesson_pic =  pg.image.load(ui_pic_path+'/choose_button.png')
 back_test_pic = pg.image.load(ui_pic_path+'/backword_green.png')
 back_test_pic2 = pg.image.load(ui_pic_path+'/previous_gray.png')
