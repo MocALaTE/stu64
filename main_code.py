@@ -512,7 +512,13 @@ while(1):
         t3.draw(screen)
         t4.draw(screen)
         pg.draw.rect(screen,green,(798,367,int(345*(progress_percent/100)),33))
-        t_percent = Text(935,373, 35 , "browallianewbold", black, 1, str(progress_percent)) #text username 
+        if progress_percent == 0:
+            t_percent = Text(953,373, 35 , "browallianewbold", black, 1, str(progress_percent))
+        if progress_percent > 0 and progress_percent < 10:
+            t_percent = Text(947,373, 35 , "browallianewbold", black, 1, str(progress_percent))
+        if progress_percent >= 10:
+            t_percent = Text(939,373, 35 , "browallianewbold", black, 1, str(progress_percent))
+         #text username 
         t_percent.draw(screen)
         if lesson_btn.mouse_on():
             screen.blit(ulp.lesson_green_btn,(597,487))
@@ -1096,31 +1102,23 @@ while(1):
             # print(pic_i_run)
         
         if u1.PointPassAll(0) :
-            t_s_1 = Text(123+30, 50+10+100, 50, "browallianewbold", green, 1, 'Success')
-            t_s_1.draw(screen)
-        
+            screen.blit(ulp.reward,(374,303))
         if u1.PointPassAll(1) :
-            t_s_2 = Text(455+30, 50+10+100, 50, "browallianewbold", green, 1, 'Success')
-            t_s_2.draw(screen)
-        
+            screen.blit(ulp.reward,(781,303))
         if u1.PointPassAll(2) :
-            t_s_3 = Text(860+30, 50+10+100, 50, "browallianewbold", green, 1, 'Success')
-            t_s_3.draw(screen)
+            screen.blit(ulp.reward,(1183,303))
         pg.display.update()
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit() 
 
     elif page == 'test_practice':
-        screen.blit(ulp.test_page, (0,0))
         if text_check == 0 :
-            head_text = "Animals"
+            screen.blit(ulp.animal_practice,(0,0))
         if text_check == 1 :
-            head_text = "Classroom"
+            screen.blit(ulp.classroom_practice,(0,0))
         if text_check == 2 :
-            head_text = "Foods"
-        t5 = Text(294, 24, 50, "browallianewbold", (0,0,0), 1, head_text)
-        t5.draw(screen)
+            screen.blit(ulp.food_practice,(0,0))
         t6 = Text(40,110 , 80, "browallianewbold", (0,0,0), 1, str(EXAMNO[0]+1) +" / 5")
         t6.draw(screen)
         if type_test_inputbox.text == "  ":
@@ -1257,16 +1255,8 @@ while(1):
             hold_p[word_test[0]] = str(EXAMNO[0])
             u1.WriteData(memprofile,hold_p,test_pass,point_pass)
             memprofile,hold_p,test_pass,point_pass = u1.ReadData(memprofile[0])
-            # print('memprofile')
-            # print(memprofile)
-            # print("hold_p")
-            # print(hold_p)
-            # print("test pass")
-            # print(test_pass)   
-        # for point
         checklist_stamp = ['A','B','C','D','E']
         if pass_test_flag == 1 :
-            # print('pass')
             EXAMNO[1] = 1
             pass_test_flag = 0
             for i in range(5):

@@ -94,6 +94,11 @@ corect_Ans = pg.image.load(ui_pic_path+'/spell_correct_pic.png')
 incorect_Ans = pg.image.load(ui_pic_path+'/spell_incorrect_pic.png')
 pro_incorrect_pic = pg.image.load(ui_pic_path+'/pronounce_incorrect_pic.png')
 pro_correct_pic = pg.image.load(ui_pic_path+'/pronounce_correct_pic.png')
+
+food_practice = pg.image.load(ui_pic_path+'/food_practice.jpg')
+animal_practice = pg.image.load(ui_pic_path+'/animal_practice.jpg')
+classroom_practice = pg.image.load(ui_pic_path+'/classroom_practice.jpg')
+reward = pg.image.load(ui_pic_path+'/reward.png')
 #practice_page
 pass_chioce = pg.image.load(ui_pic_path+'/pass_pic.png')
 test_page = pg.image.load(ui_pic_path+'/final_practice_game.jpg')
