@@ -1227,10 +1227,6 @@ while(1):
             screen.blit(ulp.pro_correct_pic,(0,0))
             type_test_inputbox.txt_surface = type_test_inputbox.font.render(type_test_inputbox.text, True, pg.Color("black"))
             screen.blit(ulp.corect_Ans,(0,0))
-            for i in range(5):
-                if EXAMNO[0] == i and test_pass[word_test[0]].find(checklist_stamp[i]) != -1 :
-                    t4 = Text(90,250, 80, "browallianewbold", green, 1, "PASS") 
-                    t4.draw(screen)
             pg.display.update()
             pg.time.delay(3000)
             pro_correct = 0
