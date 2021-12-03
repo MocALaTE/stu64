@@ -124,8 +124,9 @@ tuto_practice8 =  pg.image.load((tuto_pic_path+'/tp8.jpg'))
 tuto_practice9 =  pg.image.load((tuto_pic_path+'/tp9.jpg'))
 tuto_practice10 =  pg.image.load((tuto_pic_path+'/tp10.jpg'))
 tuto_practice11 =  pg.image.load((tuto_pic_path+'/tp11.jpg'))
-
-congrad = pg.image.load((tuto_pic_path+'/con.png'))
+tuto_practice12 =  pg.image.load((tuto_pic_path+'/havefunplaying.jpg'))
+tuto_practice13 =  pg.image.load((tuto_pic_path+'/tutorial_pratice.jpg'))
+congrad = pg.image.load((tuto_pic_path+'/ccon.png'))
 
 #########################################################################################
 
