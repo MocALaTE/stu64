@@ -116,6 +116,7 @@ boi_state = 0
 sound_count = 0
 pic_i_run = []
 activebox = 0
+lt = '1'
 #list
 wrong =[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 input_registor = [surname_register,firstname_register,nickname_register,username_register]
@@ -125,6 +126,7 @@ memprofile = []    # 'username', 'firstname', 'surname', 'nickname','type_of_pic
 hold_p = ['0','0','0']        # 'animal_hold_p','classroom_hold_p','food_hold_p'
 test_pass =['','','']      # 'animal_pass','classroom_pass','food_pass'
 point_pass = ['','','']
+tutorial_pass = ['0','0']
 # state variables
 page = 'start'
 newstatus = 0
@@ -256,7 +258,9 @@ while(1):
                         for row in reader:
                             memprofile = row[0:6]
                             hold_p = row[6:9]
-                            test_pass = row[9:12]
+                            test_pass = row[9:12]                         
+                            point_pass = row[12:15]
+                            tutorial_pass = row[16:18]
                         user_data_file.close()
                     capper = False
                     page = "profile"
@@ -332,7 +336,7 @@ while(1):
                     please = True  # get error message
         if click == 1 and pg.mouse.get_pressed()[0] == 0:
             click = 2
-            memprofile,hold_p,test_pass,point_pass = u1.ReadData(distance_box.text)
+            memprofile,hold_p,test_pass,point_pass,tutorial_pass = u1.ReadData(distance_box.text)
         if click == 2 :
             output = gTTS(text="สวัสดีน้อง"+memprofile[3],lang="th",slow=False)
             output.save("s/login_name"+memprofile[0]+".mp3")
@@ -368,6 +372,18 @@ while(1):
                 page = "login"
                 click =0
                 wrong =[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        if username_register.text == '  ':
+            t11 = Text(708, 456, 30, "browallianewbold",(200,200,200), 1, 'Username') #text username 
+            t11.draw(screen)
+        if firstname_register.text == '  ':
+            t12 = Text(708, 187, 30, "browallianewbold", (200,200,200), 1, 'Firstname') #text username 
+            t12.draw(screen)
+        if surname_register.text == '  ' :
+            t13 = Text(708, 274, 30, "browallianewbold",(200,200,200), 1, 'Surname') #text username 
+            t13.draw(screen)
+        if nickname_register.text== '  ':
+            t14 = Text(708, 367, 30, "browallianewbold", (200,200,200), 1, 'Nickname') #text username 
+            t14.draw(screen)
         if username_register.text == '  '  or firstname_register.text == '  ' \
             or surname_register.text == '  ' or nickname_register== '  ':
                 r_btn_status = False
@@ -449,7 +465,8 @@ while(1):
                     hold_p = ['0','0','0']
                     test_pass = ['','','']
                     point_pass = ['','','']
-                    u1.WriteData(memprofile,hold_p,test_pass,point_pass)
+                    tutorial_pass = ['0','0']
+                    u1.WriteData(memprofile,hold_p,test_pass,point_pass,tutorial_pass)
                     if newstatus == 1:
                         if typefi == 'png':
                             os.rename(newpath,'user_data/'+username_register.text+'.png') 
@@ -522,18 +539,28 @@ while(1):
         t_percent.draw(screen)
         if lesson_btn.mouse_on():
             screen.blit(ulp.lesson_green_btn,(597,487))
-            if pg.mouse.get_pressed()[0] == 1:
+            if pg.mouse.get_pressed()[0] == 1 and tutorial_pass[0] == '0':
                 click = 1
-            if pg.mouse.get_pressed()[0] == 0 and click ==1:
+            if pg.mouse.get_pressed()[0] == 0 and click ==1 and tutorial_pass[0] == '0':
+                page = "tutorial_lesson"
+                click =0
+            if pg.mouse.get_pressed()[0] == 1 and tutorial_pass[0] == '1':
+                click = 1
+            if pg.mouse.get_pressed()[0] == 0 and click ==1 and tutorial_pass[0] == '1':
                 page = "lesson"
                 click =0
         if practice_btn.mouse_on():
             screen.blit(ulp.p_g_b,(904,487))
             # screen.blit(ulp.practice_green_btn(904,487))
-            if pg.mouse.get_pressed()[0] == 1:
+            if pg.mouse.get_pressed()[0] == 1 and tutorial_pass[0] == '0':
                 click = 1
-            elif pg.mouse.get_pressed()[0] == 0 and click ==1:
-                page = 'practice'
+            if pg.mouse.get_pressed()[0] == 0 and click ==1 and tutorial_pass[1] == '0':
+                page = "tutorial_practice"
+                click =0
+            if pg.mouse.get_pressed()[0] == 1 and tutorial_pass[0] == '1':
+                click = 1
+            if pg.mouse.get_pressed()[0] == 0 and click ==1 and tutorial_pass[1] == '1':
+                page = "practice"
                 click =0
         ####################################################################################################################### 
         if option.mouse_on() :                  #---------setting
@@ -1013,6 +1040,135 @@ while(1):
             if event.type == pg.QUIT:
                 pg.quit() 
 
+#### tutorial ######
+    elif page == 'tutorial_practice':
+        if pt == "1":
+            screen.blit(ulp.tuto_practice1,(0,0))
+            pg.display.update()
+            pg.time.delay(2000)
+            pt = '2'
+        if pt == '2':
+            screen.blit(ulp.tuto_practice2,(0,0))
+            pg.display.update()
+            if pg.mouse.get_pressed()[0] == 1:
+                click = 1
+            if pg.mouse.get_pressed()[0] == 0 and click == 1:
+                pt = '3'
+                click = 0
+        if pt == '3':
+            screen.blit(ulp.tuto_practice3,(0,0))
+            pg.display.update()
+            if pg.mouse.get_pressed()[0] == 1:
+                click = 1
+            if pg.mouse.get_pressed()[0] == 0 and click == 1:
+                pt = '4'
+                click = 0
+        if pt == '4':
+            screen.blit(ulp.tuto_practice4,(0,0))
+            pg.display.update()
+            if pg.mouse.get_pressed()[0] == 1:
+                click = 1
+            if pg.mouse.get_pressed()[0] == 0 and click == 1:
+                pt = '5'
+                click = 0
+        if pt == '5':
+            screen.blit(ulp.tuto_practice5,(0,0))
+            pg.display.update()
+            if pg.mouse.get_pressed()[0] == 1:
+                click = 1
+            if pg.mouse.get_pressed()[0] == 0 and click == 1:
+                pt = '6'
+                click = 0
+        if pt == '6':
+            screen.blit(ulp.tuto_practice6,(0,0))
+            pg.display.update()
+            if pg.mouse.get_pressed()[0] == 1:
+                click = 1
+            if pg.mouse.get_pressed()[0] == 0 and click == 1:
+                pt = '7'
+                click = 0
+        if pt == '7':
+            screen.blit(ulp.tuto_practice7,(0,0))
+            pg.display.update()
+            if pg.mouse.get_pressed()[0] == 1:
+                click = 1
+            if pg.mouse.get_pressed()[0] == 0 and click == 1:
+                pt = '8'
+                click = 0
+        if pt == '8':
+            screen.blit(ulp.tuto_practice8,(0,0))
+            pg.display.update()
+            if pg.mouse.get_pressed()[0] == 1:
+                click = 1
+            if pg.mouse.get_pressed()[0] == 0 and click == 1:
+                pt = '9'
+                click = 0
+        if pt == '9':
+            screen.blit(ulp.tuto_practice9,(0,0))
+            pg.display.update()
+            if pg.mouse.get_pressed()[0] == 1:
+                click = 1
+            if pg.mouse.get_pressed()[0] == 0 and click == 1:
+                pt = '10'
+                click = 0
+        if pt == '10':
+            screen.blit(ulp.tuto_practice10,(0,0))
+            pg.display.update()
+            if pg.mouse.get_pressed()[0] == 1:
+                click = 1
+            if pg.mouse.get_pressed()[0] == 0 and click == 1:
+                pt = '11'
+                click = 0
+        if pt == '11':
+            screen.blit(ulp.tuto_practice11,(0,0))
+            pg.display.update()
+            pg.time.delay(2000)
+            page = 'practice'
+            u1.WriteData(memprofile,hold_p,test_pass,point_pass,[tutorial_pass[0],'1'])
+            memprofile,hold_p,test_pass,point_pass,tutorial_pass = u1.ReadData(memprofile[0])
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit()   
+    elif page == 'tutorial_lesson':
+        if lt == "1":
+            screen.blit(ulp.tuto_lesson1,(0,0))
+            pg.display.update()
+            pg.time.delay(2000)
+            lt = '2'
+        if lt == '2':
+            screen.blit(ulp.tuto_lesson2,(0,0))
+            pg.display.update()
+            if pg.mouse.get_pressed()[0] == 1:
+                click = 1
+            if pg.mouse.get_pressed()[0] == 0 and click == 1:
+                lt = '3'
+                click = 0
+        if lt == '3':
+            screen.blit(ulp.tuto_lesson3,(0,0))
+            pg.display.update()
+            if pg.mouse.get_pressed()[0] == 1:
+                click = 1
+            if pg.mouse.get_pressed()[0] == 0 and click == 1:
+                lt = '4'
+                click = 0
+        if lt == '4':
+            screen.blit(ulp.tuto_lesson4,(0,0))
+            pg.display.update()
+            if pg.mouse.get_pressed()[0] == 1:
+                click = 1
+            if pg.mouse.get_pressed()[0] == 0 and click == 1:
+                lt = '5'
+                click = 0
+        if lt == '5':
+            screen.blit(ulp.tuto_lesson5,(0,0))
+            pg.display.update()
+            pg.time.delay(2000)
+            page = 'lesson'
+            u1.WriteData(memprofile,hold_p,test_pass,point_pass,['1','0'])
+            memprofile,hold_p,test_pass,point_pass,tutorial_pass = u1.ReadData(memprofile[0])
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit()       
 ##### CODE PRACTICE PAGE #####################################################################################
 
     elif page == 'practice':
@@ -1249,8 +1405,8 @@ while(1):
         if EXAMNO[1] == 1 :
             EXAMNO[1] = 0
             hold_p[word_test[0]] = str(EXAMNO[0])
-            u1.WriteData(memprofile,hold_p,test_pass,point_pass)
-            memprofile,hold_p,test_pass,point_pass = u1.ReadData(memprofile[0])
+            u1.WriteData(memprofile,hold_p,test_pass,point_pass,tutorial_pass)
+            memprofile,hold_p,test_pass,point_pass,tutorial_pass = u1.ReadData(memprofile[0])
         checklist_stamp = ['A','B','C','D','E']
         if pass_test_flag == 1 :
             EXAMNO[1] = 1
@@ -1265,7 +1421,7 @@ while(1):
                 EXAMNO[0] += 1
             type_test_inputbox.text = "  "
             type_test_inputbox.txt_surface = type_test_inputbox.font.render(type_test_inputbox.text, True, pg.Color("black"))
-            u1.WriteData(memprofile,hold_p,test_pass,point_pass)
+            u1.WriteData(memprofile,hold_p,test_pass,point_pass,tutorial_pass)
         for i in range(5):
             if EXAMNO[0] == i and test_pass[word_test[0]].find(checklist_stamp[i]) != -1 :
                 screen.blit(ulp.pass_chioce,(177,98))
@@ -1279,7 +1435,7 @@ while(1):
             playsound(project_path+"/s/good_job_name"+memprofile[0]+".mp3")
             os.remove(project_path+"/s/good_job_name"+memprofile[0]+".mp3")
             page = 'practice'
-            u1.WriteData(memprofile,hold_p,test_pass,point_pass)
+            u1.WriteData(memprofile,hold_p,test_pass,point_pass,tutorial_pass)
         pg.display.update()
         for event in pg.event.get():
             if event.type == pg.KEYDOWN:    
