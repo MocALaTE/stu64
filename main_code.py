@@ -217,15 +217,13 @@ while(1):
                 mempicture_list.append(file_name+"."+memprofile[4])
             user_data_file.close()
         #ใบหน้าคนที่ต้องการรู้จำเป็นreference #คนที่1
-        for i in range(len(txt_member_list)):
-            # print(i)
-            file_name,type_file = txt_member_list[i].split(".")
-            # print(file_name+"\n"+type_file)
-            try:
+        try:
+            for i in range(len(txt_member_list)):
+                file_name,type_file = txt_member_list[i].split(".")
                 known_face_encodings.append(face.face_encodings(face.load_image_file("user_data/"+mempicture_list[i]))[0])
                 known_face_names.append(file_name)
-            except:
-                continue
+        except:
+            continue
         face_locations = []
         face_encodings = []
         face_names = []
