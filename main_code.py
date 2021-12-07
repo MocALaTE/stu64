@@ -242,31 +242,34 @@ while(1):
             face_locations = face.face_locations(rgb_small_frame, model="cnn")
             face_encodings = face.face_encodings(rgb_small_frame, face_locations)
             for face_encoding in face_encodings:
-                face_distances = face.face_distance(known_face_encodings, face_encoding)
-                best = np.argmin(face_distances)
-                face_percent_value = 1-face_distances[best]
-                if face_percent_value >= 0.5:
-                    name = known_face_names[best]
-                    filenames = os.listdir(user_data_path)
-                    for filename in filenames:
-                        if name+'.csv' == filename:
-                            user_status = 'have'
-                    if  user_status == 'have' :     
-                        user_data_file = open('user_data/'+file_name+'.csv','r', encoding="utf8")
-                        reader = csv.reader(user_data_file)
-                        for row in reader:
-                            memprofile = row[0:6]
-                            hold_p = row[6:9]
-                            test_pass = row[9:12]                         
-                            point_pass = row[12:15]
-                            tutorial_pass = row[16:18]
-                        user_data_file.close()
-                    capper = False
-                    page = "profile"
-                    output = gTTS(text="สวัสดีน้อง"+memprofile[3],lang="th",slow=False)
-                    output.save("s/login_name"+memprofile[0]+".mp3")
-                    print("findddddd")
-                    print(name)
+                try:
+                    face_distances = face.face_distance(known_face_encodings, face_encoding)
+                    best = np.argmin(face_distances)
+                    face_percent_value = 1-face_distances[best]
+                    if face_percent_value >= 0.5:
+                        name = known_face_names[best]
+                        filenames = os.listdir(user_data_path)
+                        for filename in filenames:
+                            if name+'.csv' == filename:
+                                user_status = 'have'
+                        if  user_status == 'have' :     
+                            user_data_file = open('user_data/'+file_name+'.csv','r', encoding="utf8")
+                            reader = csv.reader(user_data_file)
+                            for row in reader:
+                                memprofile = row[0:6]
+                                hold_p = row[6:9]
+                                test_pass = row[9:12]                         
+                                point_pass = row[12:15]
+                                tutorial_pass = row[16:18]
+                            user_data_file.close()
+                        capper = False
+                        page = "profile"
+                        output = gTTS(text="สวัสดีน้อง"+memprofile[3],lang="th",slow=False)
+                        output.save("s/login_name"+memprofile[0]+".mp3")
+                        print("findddddd")
+                        print(name)
+                except:
+                    continue
             if k >= 3:
                 page = "login"
                 capper = False
