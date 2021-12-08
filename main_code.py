@@ -180,11 +180,9 @@ while(1):
     if page == 'start':
         screen.blit(ulp.first_page,(0,0))
         pg.display.update()
-        # pg.time.delay(2000)
+        pg.time.delay(2000)
         csv_list  =[]
         txt_member_list = []
-        takephoto = cv2.VideoCapture(0)
-        video_capture = cv2.VideoCapture(0) 
         filenames = os.listdir(user_data_path)
         for filename in filenames:
             if '.csv' in filename:
@@ -232,7 +230,7 @@ while(1):
         face_names = []
         face_percent = []
         # print(known_face_names)
-        
+        video_capture = cv2.VideoCapture(0) 
         while capper == True:
             k += 1 
             print(page,k)
@@ -376,8 +374,7 @@ while(1):
                 newstatus = 0
                 click = 1
             if pg.mouse.get_pressed()[0] == 0 and click ==1:
-                page = "start"
-                # takephoto = cv2.VideoCapture(0)
+                page = "login"
                 click =0
                 wrong =[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
         if username_register.text == '  ':
@@ -406,7 +403,7 @@ while(1):
                     take_pic_state = 1
                 screen.blit(ulp.take_pic_btn,(224,289))
             while take_pic_state == 1:
-                
+                takephoto = cv2.VideoCapture(0)
                 ret, frame = takephoto.read()
                 cv2.imshow('video',frame)
                 if (cv2.waitKey(1) & 0xFF == 13):
@@ -417,9 +414,6 @@ while(1):
                     filepath = project_path+'/temp_data/capture.png'
                     takephoto.release()
                     cv2.destroyAllWindows()
-                # if (cv2.waitKey(1) & 0xFF == 27):
-                #     takephoto.release()
-                #     cv2.destroyAllWindows()
             if add_pic.mouse_on():  #กดถ่ายรูปแล้ว upload รูป
                 screen.blit(ulp.upload_pic_btn,(224,393))
                 if pg.mouse.get_pressed()[0] == 1:
@@ -429,6 +423,8 @@ while(1):
                         is_human = 1
                         newstatus = 1
                         re_pic = 1
+            
+               
         if newstatus == 1: #เปลงไฟลภาพให้พอดีกับกรอบรูป ##function
             image = cv2.imread(filepath)
             Profile_pic = pg.image.load(filepath)
