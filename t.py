@@ -9,5 +9,5 @@ A = 0.03
 
 import math
 # F = (q/2)*(((l1*math.sin(a))))
-F = math.sin(45)*180/math.pi
+F = math.sin(45)
 print(F)

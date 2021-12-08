@@ -180,9 +180,11 @@ while(1):
     if page == 'start':
         screen.blit(ulp.first_page,(0,0))
         pg.display.update()
-        pg.time.delay(2000)
+        # pg.time.delay(2000)
         csv_list  =[]
         txt_member_list = []
+        takephoto = cv2.VideoCapture(0)
+        video_capture = cv2.VideoCapture(0) 
         filenames = os.listdir(user_data_path)
         for filename in filenames:
             if '.csv' in filename:
@@ -230,7 +232,7 @@ while(1):
         face_names = []
         face_percent = []
         # print(known_face_names)
-        video_capture = cv2.VideoCapture(0) 
+        
         while capper == True:
             k += 1 
             print(page,k)
@@ -375,6 +377,7 @@ while(1):
                 click = 1
             if pg.mouse.get_pressed()[0] == 0 and click ==1:
                 page = "login"
+                takephoto = cv2.VideoCapture(0)
                 click =0
                 wrong =[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
         if username_register.text == '  ':
@@ -403,7 +406,7 @@ while(1):
                     take_pic_state = 1
                 screen.blit(ulp.take_pic_btn,(224,289))
             while take_pic_state == 1:
-                takephoto = cv2.VideoCapture(0)
+                
                 ret, frame = takephoto.read()
                 cv2.imshow('video',frame)
                 if (cv2.waitKey(1) & 0xFF == 13):
@@ -414,18 +417,18 @@ while(1):
                     filepath = project_path+'/temp_data/capture.png'
                     takephoto.release()
                     cv2.destroyAllWindows()
+                if (cv2.waitKey(1) & 0xFF == 27):
+                    takephoto.release()
+                    cv2.destroyAllWindows()
             if add_pic.mouse_on():  #กดถ่ายรูปแล้ว upload รูป
                 screen.blit(ulp.upload_pic_btn,(224,393))
                 if pg.mouse.get_pressed()[0] == 1:
                     filepath=filedialog.askopenfilename(initialdir=os.getcwd(),title="select image file",\
                     filetypes=(('JPG file','*.jpg'),('PNG file','*.png'))) # เลือกดึงรูปจาก computer เฉพาะ JPG,PNG
-                    is_human = 1
-                    newstatus = 1
-                    re_pic = 1
-                    r_btn_status = True  
-                    add_pic_state = 0 
-                else:
-                    add_pic_state = 0  
+                    if filepath!="":
+                        is_human = 1
+                        newstatus = 1
+                        re_pic = 1
         if newstatus == 1: #เปลงไฟลภาพให้พอดีกับกรอบรูป ##function
             image = cv2.imread(filepath)
             Profile_pic = pg.image.load(filepath)
@@ -686,8 +689,8 @@ while(1):
                 if r_btn_status == True :
                     click =1
                     memprofile = [memprofile[0], firstname_register1.text, surname_register1.text, nickname_register1.text,memprofile[4],memprofile[5]]
-                    u1.WriteData(memprofile,hold_p,test_pass,point_pass)
-                    memprofile,hold_p,test_pass,point_pass = u1.ReadData(memprofile[0]) 
+                    u1.WriteData(memprofile,hold_p,test_pass,point_pass,tutorial_pass)
+                    memprofile,hold_p,test_pass,point_pass,tutorial_pass = u1.ReadData(memprofile[0]) 
             if pg.mouse.get_pressed()[0] == 0 and click ==1:
                 page = "profile"
                 click =0
