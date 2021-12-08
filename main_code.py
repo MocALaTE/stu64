@@ -376,8 +376,8 @@ while(1):
                 newstatus = 0
                 click = 1
             if pg.mouse.get_pressed()[0] == 0 and click ==1:
-                page = "login"
-                takephoto = cv2.VideoCapture(0)
+                page = "start"
+                # takephoto = cv2.VideoCapture(0)
                 click =0
                 wrong =[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
         if username_register.text == '  ':
@@ -417,9 +417,9 @@ while(1):
                     filepath = project_path+'/temp_data/capture.png'
                     takephoto.release()
                     cv2.destroyAllWindows()
-                if (cv2.waitKey(1) & 0xFF == 27):
-                    takephoto.release()
-                    cv2.destroyAllWindows()
+                # if (cv2.waitKey(1) & 0xFF == 27):
+                #     takephoto.release()
+                #     cv2.destroyAllWindows()
             if add_pic.mouse_on():  #กดถ่ายรูปแล้ว upload รูป
                 screen.blit(ulp.upload_pic_btn,(224,393))
                 if pg.mouse.get_pressed()[0] == 1:
